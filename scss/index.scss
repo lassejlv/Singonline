@@ -1,0 +1,53 @@
+@import "utils/variables";
+@import "utils/fonts";
+@import "utils/reset";
+@import "utils/mixins/container";
+@import "utils/mixins/default";
+@import "components/navbar";
+@import "components/button";
+@import "components/card";
+@import "components/toast";
+@import "pages/songs";
+@import "pages/edit";
+
+* {
+  @include DefaultStyles();
+}
+
+body {
+  @include container();
+  background-color: $dark;
+  color: $primary_textColor;
+}
+
+.header {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  @include center(false);
+}
+
+.loading {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  @include center(false);
+
+  .loading-spinner {
+    width: 2.5rem;
+    height: 2.5em;
+    border: 0.5rem solid blueviolet;
+    border-top: 0.5rem solid $dark;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

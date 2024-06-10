@@ -1,0 +1,43 @@
+#song-header {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+#songs-list,
+#artists-list {
+  @include container();
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+
+  .card {
+    @include card();
+
+    h1 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: #888;
+    }
+  }
+}
+
+#song-details {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .song-details-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+}
