@@ -16,8 +16,12 @@ const app = new Hono();
 app.use(logger());
 
 // Enable static files
+app.notFound(async (c) => {
+  const notFound = await Bun.file("not-found.html").text();
+  return c.html(notFound);
+});
+
 app.get("*", serveStatic({ root: staticFiles }));
-app.get("*", serveStatic({ path: staticFiles }));
 
 // Sass Compiler
 await compile("*");
@@ -34,11 +38,15 @@ async function compile(file) {
   // Start the spinner
   const spinner = ora(`[SASS] File ${file} changed. Compiling...`).start();
 
-  // Run the sass command
-  await $`bunx sass ${watchDir}/index.scss ${compileDir} --style=compressed --no-source-map`;
+  try {
+    // Run the sass command
+    await $`bunx sass ${watchDir}/index.scss ${compileDir} --style=compressed --no-source-map`;
 
-  // Stop the spinner
-  spinner.succeed(`[SASS] Compiled in ${Date.now() - start}ms`);
+    // Stop the spinner
+    spinner.succeed(`[SASS] Compiled in ${Date.now() - start}ms`);
+  } catch (error) {
+    spinner.fail(`[SASS] Compilation failed: ${error}`);
+  }
 }
 
 // Start the server

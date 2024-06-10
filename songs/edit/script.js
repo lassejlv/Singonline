@@ -2,7 +2,7 @@ import flamethrower from "../../flamethrower-router.js";
 export const router = flamethrower({ log: true, pageTransitions: true });
 
 import { API_URL, removeLoading, sleep, toast, useFetch } from "../../main.js";
-const EditForm = document.getElementById("edit-form");
+const EditForm = document.querySelector(".edit-form");
 
 async function main() {
   const id = new URLSearchParams(window.location.search).get("id");
@@ -14,12 +14,17 @@ async function main() {
   await sleep(500);
   removeLoading();
 
-  toast("Edit Song", "info");
-
   document.title = `Sing Online - EDIT ${song.data.title}`;
 
+  console.log(song.data);
+
+  EditForm.style.display = "block";
+
   const TitleField = document.getElementById("title");
+  const Content = document.getElementById("content");
+
   TitleField.value = song.data.title;
+  Content.value = song.data.content;
 }
 
 main();
